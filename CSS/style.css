@@ -1,0 +1,39 @@
+form {
+    display: flex;
+    flex-direction: column;
+    width: 30vw;
+    height: 40vh;
+    margin: 10vh auto;
+    justify-content: space-around;
+    border: 1px solid #888;
+    padding: 10px;
+}
+
+input[readonly="1"] {
+    background:#e0e0e0;
+    border:1px solid #b0b0b0;
+}
+
+form > label, form > input, form > select {
+    float:left;
+    margin-top: 5px;
+    padding-top:4px;
+    padding-bottom:4px;
+}
+form > label {
+    clear:both;
+    width:25%;
+    font-family: 'Arial';
+    font-weight: bold;
+}
+form > input[type="submit"] {
+    margin-left: 0%;
+    clear:both;
+} 
+
+table > thead > tr{
+    background: whitesmoke;
+}
+table td {
+    padding: 5px; 
+}
