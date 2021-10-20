@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once 'DB/DBconnection.php';
 
@@ -10,31 +10,29 @@ class cepUtil {
 
             $cep = $_POST['cep'];
             $cep = self::filterCep($cep);
-
-            if (strlen($cep) == 8 AND $cepVerify = self::getAddressCep($cep) AND DBCep::getCep($cepVerify["cep"]) != false){
-
-                $address = DBCep::returnAllCepUnic($cepVerify["cep"]);
-            }  
-
-            elseif (self::isCep($cep)){
+            
+            if (strlen($cep) == 8){
                 $address = self::getAddressCep($cep);
-
-                if(in_array('erro', $address)){
+                
+                if (in_array('true', $address)){
                     $address = self::addressEmpty();
-                    $address["cep"] = 'CEP incorreto!';}
+                    $address["cep"] = 'CEP inexistente!';
+                    return $address;
+                }
+                elseif ((strlen($cep) == 8) AND (DBCep::getCep($address["cep"]) != false)){        
+                    $address = DBCep::returnAllCepUnic($address["cep"]);
+                }
                 else{
-                    DBCep::setCep($address);
-                    
+                    $address = self::getAddressCep($cep);
+                    DBCep::setCep($address); 
                 }
             }
-            else{
-                $address = self::addressEmpty();     
+            else{   
                 $address["cep"] = 'CEP digitado incorretamente!';}
             }
-
+        
         else{
-            $address = self::addressEmpty();
-            
+            $address = self::addressEmpty();          
         }
         
         return $address;
@@ -64,4 +62,3 @@ class cepUtil {
         return get_object_vars($address);
     }
 }
-?>
